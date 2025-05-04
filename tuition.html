@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tuition Fee Calculator</title>
+ 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+    }
+
+    .top-bar {
+      background-color: rebeccapurple;
+      color: white;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 15px;
+    }
+
+    .contact-info {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .top-item {
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .top-item:hover {
+      color: slateblue;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search-form input {
+      padding: 6px;
+      border-radius: 4px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .search-form button {
+      padding: 6px;
+      border: none;
+      background-color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .searchbutton {
+      height: 20px;
+      width: 20px;
+    }
+
+    .main-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+    }
+
+    .looong {
+      height: 60px;
+      display: block;
+      margin: 0 auto;
+      height: 60px;
+    }
+
+    .nav-bar {
+      background-color: rebeccapurple;
+      padding: 10px;
+      position: relative;
+    }
+
+    .nav-bar ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 30px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-bar ul li a {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    .nav-bar ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      color: white;
+      font-size: 28px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 0;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+    }
+
+    #image-display {
+      padding: 20px;
+      text-align: center;
+    }
+
+    #image-display img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2, h3 {
+      text-align: center; 
+      color-slateblue;
+    }
+
+    .calculator {
+      max-width: 500px;
+      margin: auto;
+      background: whitesmoke;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+   
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+      color: black;
+    }
+    select, input[type="number"] {
+      width: 90%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: rebeccapurple;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: slateblue;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      color: slateblue;
+    }
+    #unitMessage {
+      color: slateblue;
+      font-style: italic;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="contact-info">
+    <span class="top-item"><a href="contact.html?city=sydney" style="color:inherit; text-decoration:none;">Sydney</a></span>
+    <span class="top-item"><a href="contact.html?city=melbourne" style="color:inherit; text-decoration:none;">Melbourne</a></span>
+    <span class="top-item"><a href="contact.html?city=brisbane" style="color:inherit; text-decoration:none;">Brisbane</a></span>
+
+    </div>
+
+    <!-- Google Search Form -->
+    <form class="search-form" action="https://www.google.com/search" method="get" target="_blank">
+      <input type="text" name="q" placeholder="Search Site" required>
+      <button type="submit">
+        <img src="search.png" alt="Search" class="searchbutton">
+      </button>
+    </form>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <img src="looong.png" alt="Looong University Logo" class="looong">
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">About Loong</a></li>
+      <li><a href="courses.html">Find a Course</a></li>
+      <li><a href="inquiry.html">Inquiry Form</a></li>
+      <li><a href="tuition.html">Tuition Fee</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <br>
+  <br>
+
+<div class="calculator">
+
+
+  <h2>Tuition Fee Calculator</h2>
+
+  <label for="program">Select Program:</label>
+  <select id="program">
+    <option value="">-- Select a Program --</option>
+    <option value="master0">Master of Information Technology</option>
+    <option value="master1">Master of Nursing</option>
+    <option value="master2">Master of Social Work</option>
+    <option value="master3">Master of Engineering</option>
+  </select>
+
+  <p class="message" id="unitMessage"></p>
+
+  <label for="units">Enter Number of Units:</label>
+  <input type="number" id="units" min="0" placeholder="e.g., 4">
+  <p id="unitMessage"></p>
+
+  <label for="repeatUnits">Repeat Units (if any):</label>
+  <input type="number" id="repeatUnits" min="0" placeholder="e.g., 1">
+
+  <label>Additional Charges:</label>
+  <label><input type="checkbox" id="appFee"> Application Fee ($250)</label>
+  <label><input type="checkbox" id="idCard"> Student ID Card Replacement ($25)</label>
+  <label><input type="checkbox" id="lateEnroll"> Late Enrolment Fee ($200)</label>
+
+  <button onclick="calculateFee()">Calculate Total Tuition Fee</button>
+  <p class="result" id="tuitionFee"></p>
+</div>
+
+<script>
+  const programDropdown = document.getElementById('program');
+  const messageBox = document.getElementById('unitMessage');
+
+  function updateMessage() {
+    const program = programDropdown.value;
+    let message = '';
+
+    switch (program) {
+      case 'master0':
+        message = '**IT program usually includes 4 units.**';
+        break;
+      case 'master1':
+        message = '**Nursing typically includes 5 units with clinical placements.**';
+        break;
+      case 'master2':
+        message = '**Social Work program has 6 units with 2 field placement units.**';
+        break;
+      case 'master3':
+        message = '**This Engineering program covers 4 technical units.**';
+        break;
+    }
+
+    messageBox.innerText = message;
+  }
+
+  programDropdown.addEventListener('change', updateMessage);
+
+  window.onload = function () {
+    updateMessage();
+  }
+
+  function calculateFee() {
+    const program = document.getElementById('program').value;
+    const units = parseInt(document.getElementById('units').value) || 0;
+    const repeatUnits = parseInt(document.getElementById('repeatUnits').value) || 0;
+
+    if (units === 0){
+      alert("You have entered 0 number of unit. Please double-check if this is correct.");
+    }
+
+    let feePerUnit;
+    if (program === 'master0') {
+      feePerUnit = 2000;
+    } else if (program === 'master1') {
+      feePerUnit = 2500;
+    } else if (program === 'master2') {
+      feePerUnit = 2800;
+    } else if (program === 'master3') {
+      feePerUnit = 3000;
+    } else {
+      alert("Please select a valid program.");
+      return;
+    }
+
+    let totalFee = (units * feePerUnit) + (repeatUnits * feePerUnit);
+
+    if (document.getElementById('appFee').checked) totalFee += 250;
+    if (document.getElementById('idCard').checked) totalFee += 25;
+    if (document.getElementById('lateEnroll').checked) totalFee += 200;
+
+    document.getElementById('tuitionFee').innerText = `Total Tuition Fee: $${totalFee.toLocaleString()}`;
+  }
+</script>
+</body>
+</html>
