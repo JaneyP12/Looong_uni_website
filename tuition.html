@@ -157,9 +157,9 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    h2, h3 {
+    h2, p{
       text-align: center; 
-      color-slateblue;
+      color: slateblue;
     }
 
     .calculator {
@@ -274,8 +274,7 @@
 
   <label for="units">Enter Number of Units:</label>
   <input type="number" id="units" min="0" placeholder="e.g., 4">
-  <p id="unitMessage"></p>
-
+ 
   <label for="repeatUnits">Repeat Units (if any):</label>
   <input type="number" id="repeatUnits" min="0" placeholder="e.g., 1">
 
@@ -351,6 +350,13 @@
 
     document.getElementById('tuitionFee').innerText = `Total Tuition Fee: $${totalFee.toLocaleString()}`;
   }
+
+    function toggleMenu() {
+      const navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("show");
+    }
+
+  
 </script>
 </body>
 </html>
