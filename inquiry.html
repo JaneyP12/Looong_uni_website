@@ -1,9 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inquiry Form</title>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("gRZ8c-Jn6OqaPvVxG"); // EmailJS public key
+    })();
+  </script>
 
   <style>
     * {
@@ -81,7 +89,6 @@
       height: 60px;
       display: block;
       margin: 0 auto;
-      height: 60px;
     }
 
     .nav-bar {
@@ -242,72 +249,61 @@
     </ul>
   </nav>
 
-
-  <br>
-  <br>
+  <br><br>
   <h2> Inquiry Form</h2>
 
   <div class="form-container">
-    <form id="inquiryForm" action="#" method="post">
+    <form id="inquiryForm">
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+      <input type="text" id="name" name="name" required>
 
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Enter email address" required>
+      <input type="email" id="email" name="email" required>
 
       <label for="program">Program/Course</label>
       <select id="program" name="program" required>
         <option value="">-- Select a Program --</option>
-        <option value="master0">Master of Information Technology</option>
-        <option value="master1">Master of Nursing</option>
-        <option value="master2">Master of Social Work</option>
-        <option value="master3">Master of Engineering</option>
-        <option value="master3">Master of Engineering</option>
-        <option value="master3">Other</option>
+        <option value="Master of Information Technology">Master of Information Technology</option>
+        <option value="Master of Nursing">Master of Nursing</option>
+        <option value="Master of Social Work">Master of Social Work</option>
+        <option value="Master of Engineering">Master of Engineering</option>
+        <option value="Other">Other</option>
       </select>
 
-      
       <label for="inquiryType">Type of Inquiry</label>
       <select id="inquiryType" name="inquiryType" required>
         <option value="">-- Select Type of Inquiry --</option>
-        <option value="admission">Admission </option>
-        <option value="program">Course Information</option>
-        <option value="general">General Question</option>
-        <option value="other">Other</option>
+        <option value="Admission">Admission</option>
+        <option value="Course Information">Course Information</option>
+        <option value="General Question">General Question</option>
+        <option value="Other">Other</option>
       </select>
 
       <label for="message">Your Message</label>
-      <textarea id="message" name="message" placeholder="..." required></textarea>
+      <textarea id="message" name="message" required></textarea>
 
       <button type="submit">Send Inquiry</button>
     </form>
   </div>
 
-<!-- JavaScript -->  
   <script>
-    
-    document.getElementById('inquiryForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Stop default form submission
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const program = document.getElementById('program').value;
-      const inquiryType = document.getElementById('inquiryType').value;
-      const message = document.getElementById('message').value.trim();
-
-      if (!name || !email || !program || !inquiryType || !message) {
-        alert("Please fill out all fields before submitting.");
-        return;
-      }
-
-      alert("We have received your inquiry, " + name + ". Our team will get in touch shortly!");
-    });
-
-  
     function toggleMenu() {
       const navLinks = document.getElementById("navLinks");
       navLinks.classList.toggle("show");
     }
+
+    document.getElementById('inquiryForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm('service_0dq7jsq', 'template_wqpl3ql', this)
+        .then(() => {
+          alert("We have received your inquiry. Our team will get in touch shortly!");
+          this.reset();
+        }, (error) => {
+          console.error("Failed to send inquiry:", error);
+          alert("Failed to send. Please try again later.");
+        });
+    });
   </script>
 
 </body>
